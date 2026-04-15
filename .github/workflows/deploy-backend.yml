@@ -1,0 +1,72 @@
+name: Deploy backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "server/**"
+      - "shared/**"
+      - ".github/workflows/deploy-backend.yml"
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-backend
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to ECR
+        run: aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ vars.ECR_REPO }}
+
+      - name: Build + push image
+        id: build
+        run: |
+          TAG="v-$(date +%s)"
+          docker build --platform linux/amd64 -f server/Dockerfile -t ${{ vars.ECR_REPO }}:$TAG .
+          docker push ${{ vars.ECR_REPO }}:$TAG
+          echo "image=${{ vars.ECR_REPO }}:$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Register new task definition revision
+        id: td
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ vars.ECS_TASK_FAMILY }} --region ${{ vars.AWS_REGION }} --query "taskDefinition" --output json > td.json
+          python - <<PY
+          import json
+          d = json.load(open('td.json'))
+          keep = {k: d[k] for k in ['family','taskRoleArn','executionRoleArn','networkMode','containerDefinitions','volumes','placementConstraints','requiresCompatibilities','cpu','memory','runtimePlatform'] if k in d}
+          keep['containerDefinitions'][0]['image'] = '${{ steps.build.outputs.image }}'
+          json.dump(keep, open('td-new.json','w'))
+          PY
+          NEW_TD=$(aws ecs register-task-definition --cli-input-json file://td-new.json --region ${{ vars.AWS_REGION }} --query 'taskDefinition.taskDefinitionArn' --output text)
+          echo "td_arn=$NEW_TD" >> "$GITHUB_OUTPUT"
+
+      - name: Update service
+        run: |
+          aws ecs update-service \
+            --cluster ${{ vars.ECS_CLUSTER }} \
+            --service ${{ vars.ECS_SERVICE }} \
+            --task-definition ${{ steps.td.outputs.td_arn }} \
+            --force-new-deployment \
+            --region ${{ vars.AWS_REGION }} \
+            --query "service.deployments[0].status" --output text
+
+      - name: Wait for service stable
+        run: |
+          aws ecs wait services-stable \
+            --cluster ${{ vars.ECS_CLUSTER }} \
+            --services ${{ vars.ECS_SERVICE }} \
+            --region ${{ vars.AWS_REGION }}
