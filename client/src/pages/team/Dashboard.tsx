@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useMySession } from "../../hooks/useSessionData";
-import { Badge, Card, CardBody, CardTitle, Stat } from "../../components/ui";
+import { Badge, Button, Card, CardBody, CardTitle, Stat } from "../../components/ui";
 import { LeagueTable } from "../../components/LeagueTable";
 import { MatchResultsList } from "../../components/MatchResultsList";
 import { EventNotifications } from "../../components/EventNotifications";
@@ -17,6 +17,12 @@ export function TeamDashboard() {
   if (isLoading || !data) return <div className="text-ink-500">Loading…</div>;
   const myTeam = data.teams.find((t) => t.id === session.teamId);
   if (!myTeam) return <div className="text-ink-500">Team not found.</div>;
+
+  // While the facilitator hasn't advanced past setup, route directly into the setup wizard
+  // so members see the decisions they need to make, not an empty dashboard.
+  if (data.session.status === "setup") {
+    return <SetupHandoff team={myTeam} session={data.session} />;
+  }
 
   const myResults = data.phaseResults.filter((r) => r.teamId === myTeam.id);
 
@@ -58,6 +64,74 @@ export function TeamDashboard() {
           <TeamMembersCard team={myTeam} />
         </aside>
       </div>
+    </div>
+  );
+}
+
+// ---- Setup-phase landing screen ----
+// Shows team composition, checklist, and a big "Go to setup" CTA. MD/FD/SD/OM can all
+// edit setup; MPRD's role is advisory during setup, so we still route them through.
+function SetupHandoff({ team, session }: { team: any; session: any }) {
+  const checklist = [
+    { label: "Club name chosen", done: team.name && !/^Team \d+$/.test(team.name) },
+    { label: "Stadium chosen", done: !!team.stadiumChoice },
+    { label: "F&B scheme chosen", done: !!team.fbScheme },
+    { label: "Squad selected (12–20 players)", done: (team.selectedPlayerIds?.length ?? 0) >= 12 },
+    { label: "Equity finance set", done: team.equityFinance > 0 },
+    { label: "Marked ready (MD/FD)", done: !!team.setupComplete }
+  ];
+  const doneCount = checklist.filter((i) => i.done).length;
+  return (
+    <div className="max-w-3xl mx-auto space-y-4">
+      <Card>
+        <CardBody>
+          <CardTitle className="mb-1">Welcome, {team.name}</CardTitle>
+          <p className="text-sm text-ink-500 mb-4">
+            Session <span className="font-mono">{session.gameCode}</span> · Status: <Badge tone="warn">setup</Badge>
+          </p>
+
+          <div className="mb-4">
+            <div className="text-sm font-medium mb-2">Your team ({team.members.length}/5)</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-sm">
+              {team.members.map((m: any) => (
+                <div key={m.id} className="flex justify-between rounded bg-ink-100 px-2 py-1">
+                  <span>{m.displayName}</span>
+                  <Badge tone="info">{m.role}</Badge>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <div className="text-sm font-medium mb-2">
+              Setup progress: {doneCount}/{checklist.length}
+            </div>
+            <ul className="text-sm space-y-1">
+              {checklist.map((i) => (
+                <li key={i.label} className="flex items-center gap-2">
+                  <span className={`inline-block h-2 w-2 rounded-full ${i.done ? "bg-green-500" : "bg-ink-300"}`} />
+                  {i.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p className="text-sm text-ink-700 mb-4">
+            Everyone on the team can open the setup wizard. Decisions are role-gated — each role unlocks the
+            choices they're responsible for. Once all six items above are ticked, MD or FD marks setup complete;
+            the facilitator can then start the season.
+          </p>
+
+          <div className="flex gap-2">
+            <Link to="/team/setup">
+              <Button>Open setup wizard</Button>
+            </Link>
+            <Link to="/team/setup">
+              <Button variant="secondary">See role-specific decisions</Button>
+            </Link>
+          </div>
+        </CardBody>
+      </Card>
     </div>
   );
 }

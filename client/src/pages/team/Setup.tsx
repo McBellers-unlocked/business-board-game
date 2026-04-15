@@ -59,7 +59,7 @@ export function Setup() {
           <h1 className="text-2xl font-semibold">{myTeam.name}</h1>
           <p className="text-sm text-ink-500">Role: {role} · Setup phase</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {myTeam.setupComplete ? (
             <Badge tone="good">Ready</Badge>
           ) : (
@@ -75,6 +75,17 @@ export function Setup() {
           )}
         </div>
       </header>
+
+      <Card>
+        <CardBody className="py-3">
+          <p className="text-sm text-ink-700">
+            Each decision is owned by specific roles — panels you can't edit will be greyed out. Coordinate as a
+            team: MD owns the club name and breaks deadlocks; MD/FD pick the stadium and equity; FD/OM pick F&amp;B;
+            SD picks the squad. When every decision is made, MD or FD clicks <strong>Mark setup complete</strong> and
+            the facilitator can advance to phase 1.
+          </p>
+        </CardBody>
+      </Card>
 
       {mutation.isError && (
         <div className="bg-red-50 border border-red-200 text-red-700 rounded-md p-3 text-sm">
