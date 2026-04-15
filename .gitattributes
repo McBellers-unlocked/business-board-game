@@ -1,0 +1,11 @@
+# Force LF line endings for text files (avoids CRLF noise on Windows checkouts)
+* text=auto eol=lf
+
+# Treat binary types properly
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.docx binary
+*.pdf binary
+*.zip binary

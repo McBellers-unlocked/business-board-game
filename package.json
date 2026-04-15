@@ -1,0 +1,31 @@
+{
+  "name": "dcl-platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Deeland Cricket League — Business Simulation Platform",
+  "workspaces": [
+    "shared",
+    "server",
+    "client",
+    "infra"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "build": "npm --workspaces run build",
+    "test": "npm --workspaces run test --if-present",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:migrate": "npm --workspace server run migrate",
+    "db:seed": "npm --workspace server run seed",
+    "db:reset": "npm --workspace server run db:reset"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

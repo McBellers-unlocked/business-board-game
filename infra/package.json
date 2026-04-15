@@ -1,0 +1,24 @@
+{
+  "name": "@dcl/infra",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "dcl-infra": "bin/app.ts" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy --all --require-approval never",
+    "diff": "cdk diff",
+    "destroy": "cdk destroy --all --force"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.147.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "aws-cdk": "^2.147.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.4.5"
+  }
+}

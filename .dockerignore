@@ -1,0 +1,15 @@
+node_modules
+**/node_modules
+dist
+**/dist
+.pg-data
+cdk.out
+infra/cdk.out
+.env
+.env.*
+coverage
+.vscode
+.idea
+.git
+.claude
+*.docx
