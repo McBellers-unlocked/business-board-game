@@ -171,7 +171,7 @@ function StadiumPanel({
               disabled={disabled}
               onClick={() => onSave(s.key)}
               className={`text-left p-3 rounded-md ring-1 transition ${
-                team.stadiumChoice === s.key ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+                team.stadiumChoice === s.key ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
               } disabled:opacity-60`}
             >
               <div className="font-medium">{s.label}</div>
@@ -200,7 +200,7 @@ function FBPanel({ team, disabled, onSave }: { team: any; disabled: boolean; onS
             disabled={disabled}
             onClick={() => onSave("fixed")}
             className={`text-left p-3 rounded-md ring-1 transition ${
-              team.fbScheme === "fixed" ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+              team.fbScheme === "fixed" ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
             } disabled:opacity-60`}
           >
             <div className="font-medium">Fixed fee</div>
@@ -210,7 +210,7 @@ function FBPanel({ team, disabled, onSave }: { team: any; disabled: boolean; onS
             disabled={disabled}
             onClick={() => onSave("revenue")}
             className={`text-left p-3 rounded-md ring-1 transition ${
-              team.fbScheme === "revenue" ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+              team.fbScheme === "revenue" ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
             } disabled:opacity-60`}
           >
             <div className="font-medium">Revenue share (30%)</div>
@@ -275,7 +275,7 @@ function PlayersPanel({
                 disabled={disabled}
                 onClick={() => toggle(p.id)}
                 className={`text-left p-2 rounded-md ring-1 text-sm transition ${
-                  chosen ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+                  chosen ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
                 } disabled:opacity-60`}
               >
                 <div className="flex items-center justify-between">

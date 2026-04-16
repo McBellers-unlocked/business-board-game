@@ -20,24 +20,25 @@ export function App() {
 
   return (
     <div className="min-h-full flex flex-col">
-      <header className="bg-ink-900 text-white">
+      <header className="bg-ink-900 border-b border-ink-300/40">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="font-semibold tracking-tight">
+          <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight text-ink-50">
+            <img src="/logo-mark.png" alt="" className="h-8 w-8" />
             Deeland Cricket League
           </Link>
-          <nav className="flex items-center gap-2 text-sm">
+          <nav className="flex items-center gap-2 text-sm text-ink-50">
             {session?.kind === "facilitator" && (
               <>
-                <Link to="/facilitator" className="hover:underline">
+                <Link to="/facilitator" className="hover:underline text-ink-500 hover:text-ink-50">
                   Dashboard
                 </Link>
-                <Link to="/facilitator/configs" className="hover:underline">
+                <Link to="/facilitator/configs" className="hover:underline text-ink-500 hover:text-ink-50">
                   Configs
                 </Link>
-                <span className="text-ink-300">· {session.email}</span>
+                <span className="text-ink-500">· {session.email}</span>
                 <Button
                   variant="ghost"
-                  className="text-white hover:bg-ink-700"
+                  className="text-ink-50 hover:bg-ink-100"
                   onClick={() => {
                     logout();
                     navigate("/");
@@ -49,16 +50,16 @@ export function App() {
             )}
             {session?.kind === "team" && (
               <>
-                <Link to="/team" className="hover:underline">
+                <Link to="/team" className="hover:underline text-ink-500 hover:text-ink-50">
                   My team
                 </Link>
-                <Link to="/team/setup" className="hover:underline">
+                <Link to="/team/setup" className="hover:underline text-ink-500 hover:text-ink-50">
                   Setup
                 </Link>
-                <span className="text-ink-300">· Role: {session.role}</span>
+                <span className="text-ink-500">· Role: {session.role}</span>
                 <Button
                   variant="ghost"
-                  className="text-white hover:bg-ink-700"
+                  className="text-ink-50 hover:bg-ink-100"
                   onClick={() => {
                     logout();
                     navigate("/");
@@ -99,8 +100,8 @@ export function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <footer className="bg-white border-t border-ink-300 py-3 text-xs text-ink-500">
-        <div className="max-w-7xl mx-auto px-4">DCL Business Simulation — prototype</div>
+      <footer className="bg-ink-900 border-t border-ink-300/40 py-3 text-xs text-ink-500">
+        <div className="max-w-7xl mx-auto px-4">Deeland Cricket League — Business Simulation Platform</div>
       </footer>
     </div>
   );
@@ -112,8 +113,8 @@ function Landing() {
   if (session?.kind === "team") return <Navigate to="/team" />;
   return (
     <div className="max-w-2xl mx-auto text-center py-16">
-      <h1 className="text-3xl font-bold mb-4">Deeland Cricket League</h1>
-      <p className="text-ink-700 mb-8">
+      <img src="/logo-full.png" alt="Deeland Cricket League" className="mx-auto h-48 mb-6" />
+      <p className="text-ink-500 mb-8">
         A business simulation where teams run a fictional cricket club: making financial, operational, marketing and
         staffing decisions across four phases of the season.
       </p>

@@ -4,5 +4,5 @@
 
 html, body, #root { height: 100%; }
 body {
-  @apply bg-ink-100 text-ink-900 antialiased;
+  @apply bg-ink-900 text-ink-700 antialiased;
 }

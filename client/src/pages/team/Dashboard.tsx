@@ -247,7 +247,7 @@ function SdSquad({ team, config }: { team: any; config: any }) {
             const injured = team.injuredPlayerIds?.includes(p.id);
             const suspended = team.suspendedPlayerIds?.includes(p.id);
             return (
-              <div key={p.id} className="p-2 rounded-md ring-1 ring-ink-300 bg-white text-sm">
+              <div key={p.id} className="p-2 rounded-md ring-1 ring-ink-300 bg-ink-100 text-sm">
                 <div className="flex items-center justify-between">
                   <div className="font-medium">
                     {p.name} <span className="text-ink-500 text-xs">· {p.type}</span>

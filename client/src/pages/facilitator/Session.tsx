@@ -117,7 +117,7 @@ function TeamsOverview({ teams }: { teams: Team[] }) {
         <CardTitle className="mb-3">Teams</CardTitle>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {teams.map((t) => (
-            <div key={t.id} className="rounded-md ring-1 ring-ink-300 p-3 bg-white">
+            <div key={t.id} className="rounded-md ring-1 ring-ink-300 p-3 bg-ink-100">
               <div className="flex items-center justify-between">
                 <div className="font-medium">
                   {t.name} {t.isAI ? <Badge tone="neutral">AI</Badge> : null}

@@ -103,7 +103,7 @@ export function JoinBrowse() {
                     setRole("");
                   }}
                   className={`text-left rounded-md p-3 ring-1 ${
-                    selectedTeamId === t.id ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+                    selectedTeamId === t.id ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
                   }`}
                 >
                   <div className="font-medium">{t.name}</div>
@@ -134,7 +134,7 @@ export function JoinBrowse() {
                     disabled={taken}
                     onClick={() => setRole(r)}
                     className={`text-left rounded-md p-3 ring-1 ${
-                      role === r ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-white hover:bg-ink-100"
+                      role === r ? "ring-brand-500 bg-brand-50" : "ring-ink-300 bg-ink-100 hover:bg-ink-100"
                     } disabled:bg-ink-100 disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     <div className="flex items-center justify-between">

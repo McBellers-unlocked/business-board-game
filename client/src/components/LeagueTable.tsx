@@ -27,7 +27,7 @@ export function LeagueTable({ rows, highlightTeamId }: { rows: LeagueTableRow[];
               {rows.map((r) => (
                 <tr
                   key={r.teamId}
-                  className={`border-b border-ink-100 ${r.teamId === highlightTeamId ? "bg-brand-50" : ""}`}
+                  className={`border-b border-ink-300/30 hover:bg-ink-100 ${r.teamId === highlightTeamId ? "bg-brand-50/30" : ""}`}
                 >
                   <td className="py-1 pr-2 font-medium">{r.position}</td>
                   <td className="pr-2">
