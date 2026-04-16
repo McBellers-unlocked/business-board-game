@@ -4,32 +4,39 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Redefine the ink/brand scales so existing utility classes in components
-        // map to the DCL palette without a mass search-replace across every file.
-        //
-        // ink: neutral scale (dark backgrounds + text on dark)
+        // ink: neutral scale — light page, dark text
         ink: {
-          50:  "#E8DEC8",  // cream (lightest — used for primary text on dark bg)
-          100: "#2A3D32",  // card/surface bg (mid-dark)
-          200: "#334A3C",  // hover on cards
-          300: "#3F5548",  // borders, separators
-          500: "#A8B3A2",  // secondary/meta text
-          700: "#E8DEC8",  // body text (synonymous with ink-50 so text-ink-700 stays readable)
-          900: "#1F2F26"   // deepest — page bg, header, tables
+          50:  "#F7F7F5",  // page bg (lightest)
+          100: "#FFFFFF",  // card bg (white)
+          200: "#F0F0EE",  // hover on cards
+          300: "#D1D5DB",  // borders
+          500: "#6B7280",  // secondary/meta text
+          700: "#374151",  // body text
+          900: "#110B0F"   // heading text (darkest)
         },
-        // brand: primary action (forest green)
+        // brand: primary action (cricket-ball red)
         brand: {
-          50:  "#2F4A38",
-          100: "#2F4A38",
-          500: "#4D8260",
-          600: "#3F6B4F",  // primary button bg
-          700: "#2F4A38"   // primary button hover
+          50:  "#FEF0F0",
+          100: "#FCDADA",
+          500: "#E03030",
+          600: "#D5161D",  // key buttons
+          700: "#B01218"   // hover
         },
-        // accent: secondary action (aubergine purple)
+        // navy: header + structural blue
+        navy: {
+          50:  "#EBF0F7",
+          100: "#D0DCEE",
+          500: "#1E4F9A",
+          600: "#123A78",  // header bg, crest outlines
+          700: "#0E2D5E",  // hover
+          800: "#091D3E"
+        },
+        // accent: gold trim / banners
         accent: {
-          500: "#7A4C7F",
-          600: "#7A4C7F",
-          700: "#6A3D6E"
+          400: "#F0B03D",
+          500: "#ED9F1E",  // gold
+          600: "#D88E14",
+          700: "#C07E10"
         }
       }
     }

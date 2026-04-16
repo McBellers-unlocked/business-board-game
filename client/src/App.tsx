@@ -20,25 +20,25 @@ export function App() {
 
   return (
     <div className="min-h-full flex flex-col">
-      <header className="bg-ink-900 border-b border-ink-300/40">
+      <header className="bg-navy-600 text-[#E9E8E6]">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight text-ink-50">
+          <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
             <img src="/logo-mark.png" alt="" className="h-8 w-8" />
             Deeland Cricket League
           </Link>
-          <nav className="flex items-center gap-2 text-sm text-ink-50">
+          <nav className="flex items-center gap-2 text-sm">
             {session?.kind === "facilitator" && (
               <>
-                <Link to="/facilitator" className="hover:underline text-ink-500 hover:text-ink-50">
+                <Link to="/facilitator" className="opacity-80 hover:opacity-100 hover:underline">
                   Dashboard
                 </Link>
-                <Link to="/facilitator/configs" className="hover:underline text-ink-500 hover:text-ink-50">
+                <Link to="/facilitator/configs" className="opacity-80 hover:opacity-100 hover:underline">
                   Configs
                 </Link>
-                <span className="text-ink-500">· {session.email}</span>
+                <span className="opacity-60">· {session.email}</span>
                 <Button
                   variant="ghost"
-                  className="text-ink-50 hover:bg-ink-100"
+                  className="text-[#E9E8E6] hover:bg-navy-700"
                   onClick={() => {
                     logout();
                     navigate("/");
@@ -50,16 +50,16 @@ export function App() {
             )}
             {session?.kind === "team" && (
               <>
-                <Link to="/team" className="hover:underline text-ink-500 hover:text-ink-50">
+                <Link to="/team" className="opacity-80 hover:opacity-100 hover:underline">
                   My team
                 </Link>
-                <Link to="/team/setup" className="hover:underline text-ink-500 hover:text-ink-50">
+                <Link to="/team/setup" className="opacity-80 hover:opacity-100 hover:underline">
                   Setup
                 </Link>
-                <span className="text-ink-500">· Role: {session.role}</span>
+                <span className="opacity-60">· Role: {session.role}</span>
                 <Button
                   variant="ghost"
-                  className="text-ink-50 hover:bg-ink-100"
+                  className="text-[#E9E8E6] hover:bg-navy-700"
                   onClick={() => {
                     logout();
                     navigate("/");
@@ -100,7 +100,7 @@ export function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <footer className="bg-ink-900 border-t border-ink-300/40 py-3 text-xs text-ink-500">
+      <footer className="bg-navy-600 text-[#E9E8E6]/70 py-3 text-xs">
         <div className="max-w-7xl mx-auto px-4">Deeland Cricket League — Business Simulation Platform</div>
       </footer>
     </div>

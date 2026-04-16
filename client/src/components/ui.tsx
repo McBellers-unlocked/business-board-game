@@ -5,9 +5,9 @@ export function Button({ className, variant = "primary", ...rest }: ButtonHTMLAt
   const cls = clsx(
     "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition disabled:opacity-50 disabled:pointer-events-none",
     variant === "primary" && "bg-brand-600 text-white hover:bg-brand-700",
-    variant === "secondary" && "bg-ink-100 text-ink-50 border border-ink-300 hover:bg-ink-200",
-    variant === "ghost" && "bg-transparent text-ink-700 hover:bg-ink-100",
-    variant === "danger" && "bg-red-600 text-white hover:bg-red-700",
+    variant === "secondary" && "bg-white text-ink-900 border border-ink-300 hover:bg-ink-200",
+    variant === "ghost" && "bg-transparent text-ink-700 hover:bg-ink-200",
+    variant === "danger" && "bg-red-700 text-white hover:bg-red-800",
     className
   );
   return <button className={cls} {...rest} />;
@@ -18,8 +18,8 @@ export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={clsx(
-        "block w-full rounded-md border border-ink-300 bg-ink-100 px-3 py-2 text-sm shadow-sm",
-        "focus:border-brand-500 focus:ring-brand-500 focus:outline-none",
+        "block w-full rounded-md border border-ink-300 bg-white px-3 py-2 text-sm shadow-sm text-ink-900",
+        "focus:border-navy-500 focus:ring-navy-500 focus:outline-none",
         props.className
       )}
     />
@@ -31,8 +31,8 @@ export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
     <textarea
       {...props}
       className={clsx(
-        "block w-full rounded-md border border-ink-300 bg-ink-100 px-3 py-2 text-sm shadow-sm",
-        "focus:border-brand-500 focus:ring-brand-500 focus:outline-none",
+        "block w-full rounded-md border border-ink-300 bg-white px-3 py-2 text-sm shadow-sm text-ink-900",
+        "focus:border-navy-500 focus:ring-navy-500 focus:outline-none",
         props.className
       )}
     />
@@ -44,8 +44,8 @@ export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {
     <select
       {...props}
       className={clsx(
-        "block w-full rounded-md border border-ink-300 bg-ink-100 px-3 py-2 text-sm shadow-sm",
-        "focus:border-brand-500 focus:ring-brand-500 focus:outline-none",
+        "block w-full rounded-md border border-ink-300 bg-white px-3 py-2 text-sm shadow-sm text-ink-900",
+        "focus:border-navy-500 focus:ring-navy-500 focus:outline-none",
         props.className
       )}
     />
@@ -53,7 +53,7 @@ export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {
 }
 
 export function Card({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={clsx("rounded-lg bg-ink-100 shadow ring-1 ring-ink-300/40", className)} {...rest} />;
+  return <div className={clsx("rounded-lg bg-white shadow ring-1 ring-ink-300/60", className)} {...rest} />;
 }
 
 export function CardBody({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
@@ -67,11 +67,11 @@ export function CardTitle({ className, ...rest }: HTMLAttributes<HTMLHeadingElem
 export function Badge({ tone = "neutral", children, className }: { tone?: "neutral" | "good" | "warn" | "bad" | "info"; children: React.ReactNode; className?: string }) {
   const cls = clsx(
     "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
-    tone === "neutral" && "bg-ink-300/60 text-ink-50",
-    tone === "good" && "bg-green-800/60 text-green-300",
-    tone === "warn" && "bg-yellow-800/60 text-yellow-300",
-    tone === "bad" && "bg-red-800/60 text-red-300",
-    tone === "info" && "bg-brand-600/40 text-brand-500",
+    tone === "neutral" && "bg-ink-200 text-ink-700",
+    tone === "good" && "bg-green-100 text-green-800",
+    tone === "warn" && "bg-accent-400/20 text-accent-700",
+    tone === "bad" && "bg-red-100 text-red-800",
+    tone === "info" && "bg-navy-50 text-navy-600",
     className
   );
   return <span className={cls}>{children}</span>;
@@ -87,9 +87,9 @@ export function SectionHeading({ children, className }: { children: React.ReactN
 
 export function Stat({ label, value, hint }: { label: string; value: React.ReactNode; hint?: React.ReactNode }) {
   return (
-    <div className="rounded-lg bg-ink-900 p-3 ring-1 ring-ink-300/40">
+    <div className="rounded-lg bg-white p-3 ring-1 ring-ink-300/60">
       <div className="text-xs uppercase tracking-wide text-ink-500">{label}</div>
-      <div className="text-xl font-semibold text-ink-50">{value}</div>
+      <div className="text-xl font-semibold text-ink-900">{value}</div>
       {hint ? <div className="text-xs text-ink-500 mt-0.5">{hint}</div> : null}
     </div>
   );
